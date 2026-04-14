@@ -13,15 +13,22 @@ const UserLogin = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    const response = await axios.post("http://localhost:3000/api/auth/user/login", {
-      email,
-      password
-    }, { withCredentials: true });
+    console.log("Submitting login..."); // DEBUG
 
-    console.log(response.data);
+  try {
+    const response = await axios.post(
+      "http://localhost:3000/api/auth/user/login",
+      { email, password },
+      { withCredentials: true }
+    );
 
-    navigate("/"); // Redirect to home after login
+    console.log("Login success:", response.data);
 
+    navigate("/home");
+  } catch (error) {
+    console.error("Login error:", error.response?.data || error.message);
+    alert("Login failed! Check console.");
+  }
   };
 
   return (

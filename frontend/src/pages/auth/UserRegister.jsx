@@ -16,19 +16,33 @@ const UserRegister = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
 
+console.log("Register button clicked");
 
-        const response = await axios.post("http://localhost:3000/api/auth/user/register", {
-            fullName: firstName + " " + lastName,
-            email,
-            password
-        },
-        {
-            withCredentials: true
-        })
+    try {
+        const response = await axios.post(
+            "http://localhost:3000/api/auth/user/register",
+            {
+                fullName: firstName + " " + lastName,
+                email,
+                password
+            },
+            {
+                withCredentials: true
+            }
+        );
 
-        console.log(response.data);
+        console.log("Signup success:", response.data);
 
-        navigate("/")
+        // save token if backend sends it
+        if (response.data.token) {
+            localStorage.setItem("token", response.data.token);
+        }
+
+        navigate("/");
+    } catch (error) {
+        console.error("Signup failed:", error.response?.data?.message || error.message);
+alert(error.response?.data?.message || "Signup failed");;
+    }
 
     };
 

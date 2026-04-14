@@ -54,16 +54,24 @@ const CreateFood = () => {
 
         formData.append('name', name);
         formData.append('description', description);
-        formData.append("mama", videoFile);
+        formData.append("video", videoFile);
 
-        const response = await axios.post("http://localhost:3000/api/food", formData, {
-            withCredentials: true,
-        })
+        try {
+        const response = await axios.post(
+            "http://localhost:3000/api/food",
+            formData,
+            {
+                withCredentials: true,
+            }
+        );
 
-        console.log(response.data);
-        navigate("/"); // Redirect to home or another page after successful creation
-        // Optionally reset
-        // setName(''); setDescription(''); setVideoFile(null);
+        console.log("Food uploaded:", response.data);
+        alert("Food uploaded successfully!");
+        navigate("/");
+    } catch (error) {
+        console.error("Upload failed:", error.response?.data || error.message);
+        alert("Upload failed. Check console.");
+    }
     };
 
     const isDisabled = useMemo(() => !name.trim() || !videoFile, [ name, videoFile ]);
