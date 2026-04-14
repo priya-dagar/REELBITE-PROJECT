@@ -13,12 +13,22 @@ const app = express();
  */
 const allowedOrigins = [
   "http://localhost:5173",
-  process.env.CLIENT_URL,
+  "https://reelbite-project.vercel.app",
+  "https://reelbite-project-12us.vercel.app"
 ].filter(Boolean);
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      console.log("Blocked CORS origin:", origin);
+      return callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
   })
 );
