@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/auth-shared.css';
-import axios from 'axios';
+import api from "../../utils/api";
 import { useNavigate } from 'react-router-dom';
 
 const UserRegister = () => {
@@ -19,17 +19,14 @@ const UserRegister = () => {
 console.log("Register button clicked");
 
     try {
-        const response = await axios.post(
-            "http://localhost:3000/api/auth/user/register",
-            {
-                fullName: firstName + " " + lastName,
-                email,
-                password
-            },
-            {
-                withCredentials: true
-            }
-        );
+        const response = await api.post(
+            "/api/auth/user/register",
+    {
+        fullName: firstName + " " + lastName,
+        email,
+        password
+    }
+);
 
         console.log("Signup success:", response.data);
 
