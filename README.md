@@ -68,7 +68,6 @@ REELBITE-PROJECT/
 ## 🚀 Getting Started
 
 ### 1️⃣ Clone the Repository
-```bash
 git clone https://github.com/priya-dagar/REELBITE-PROJECT.git
 cd REELBITE-PROJECT
 2️⃣ Backend Setup
